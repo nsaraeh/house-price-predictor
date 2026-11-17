@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>House Price Predictor</title>
+<style>
+  :root{--bg:#f4f6fb;--card:#fff;--text:#1d2433;--muted:#667085;--line:#d8deea;
+        --brand:#2f5bea;--brand-d:#2347c0;--ok:#0f8a5f;--err:#c0392b}
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#10141f;--card:#1a2030;--text:#e8ecf5;--muted:#9aa5bd;--line:#2d3650;
+          --brand:#5b82ff;--brand-d:#7b9aff;--ok:#38c995;--err:#ff7b6b}}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+       background:var(--bg);color:var(--text);line-height:1.5}
+  main{max-width:760px;margin:0 auto;padding:32px 16px 48px}
+  h1{margin:0 0 4px;font-size:1.8rem}
+  .sub{color:var(--muted);margin:0 0 24px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  label{display:block;font-size:.9rem;font-weight:600;margin-bottom:6px}
+  input,select{width:100%;padding:10px 12px;font-size:1rem;color:var(--text);
+       background:var(--bg);border:1px solid var(--line);border-radius:8px}
+  input:focus,select:focus{outline:2px solid var(--brand);border-color:transparent}
+  .err{color:var(--err);font-size:.82rem;margin-top:4px}
+  .invalid{border-color:var(--err)}
+  button{margin-top:22px;width:100%;padding:13px;font-size:1.05rem;font-weight:600;
+       color:#fff;background:var(--brand);border:0;border-radius:10px;cursor:pointer}
+  button:hover{background:var(--brand-d)}
+  .result{margin-top:22px;text-align:center;border:1px solid var(--ok);border-radius:14px;padding:22px}
+  .price{font-size:2.4rem;font-weight:800;color:var(--ok);margin:2px 0}
+  .range{color:var(--muted);font-size:.95rem}
+  .foot{color:var(--muted);font-size:.82rem;margin-top:22px;text-align:center}
+</style>
+</head>
+<body>
+<main>
+  <h1>🏠 House Price Predictor</h1>
+  <p class="sub">Enter the features of a house to get an estimated sale price (Ames, Iowa market data).</p>
+
+  <form class="card" method="post" action="/predict" novalidate>
+    <div class="grid">
+      {% for name, (label, lo, hi, default, step) in fields.items() %}
+      <div>
+        <label for="{{ name }}">{{ label }}</label>
+        <input id="{{ name }}" name="{{ name }}" type="number" min="{{ lo }}" max="{{ hi }}"
+               step="{{ step }}" value="{{ values.get(name, default) }}" required
+               class="{{ 'invalid' if name in errors }}">
+        {% if name in errors %}<div class="err">{{ errors[name] }}</div>{% endif %}
+      </div>
+      {% endfor %}
+      <div>
+        <label for="Neighborhood">Neighborhood</label>
+        <select id="Neighborhood" name="Neighborhood" class="{{ 'invalid' if 'Neighborhood' in errors }}">
+          {% for code, nice in neighborhoods %}
+          <option value="{{ code }}" {{ 'selected' if values.get('Neighborhood') == code }}>{{ nice }}</option>
+          {% endfor %}
+        </select>
+        {% if 'Neighborhood' in errors %}<div class="err">{{ errors['Neighborhood'] }}</div>{% endif %}
+      </div>
+      <div>
+        <label for="KitchenQual">Kitchen quality</label>
+        <select id="KitchenQual" name="KitchenQual" class="{{ 'invalid' if 'KitchenQual' in errors }}">
+          {% for code, nice in kitchen.items() %}
+          <option value="{{ code }}" {{ 'selected' if values.get('KitchenQual') == code }}>{{ nice }}</option>
+          {% endfor %}
+        </select>
+        {% if 'KitchenQual' in errors %}<div class="err">{{ errors['KitchenQual'] }}</div>{% endif %}
+      </div>
+    </div>
+    <button type="submit">Predict price</button>
+
+    {% if result %}
+    <div class="result" role="status">
+      <div class="range">Estimated sale price</div>
+      <div class="price">${{ "{:,}".format(result.price) }}</div>
+      <div class="range">Likely range: ${{ "{:,}".format(result.low) }} – ${{ "{:,}".format(result.high) }}</div>
+    </div>
+    {% endif %}
+  </form>
+
+  <p class="foot">
+    Model: {{ meta.model_name }} trained on {{ "{:,}".format(meta.n_training_rows) }} sales.
+    Typical error on unseen houses: about ±${{ "{:,}".format(typical_error) }}.
+    This is an estimate, not an appraisal.
+  </p>
+</main>
+</body>
+</html>

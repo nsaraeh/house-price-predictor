@@ -1,0 +1,119 @@
+{
+  "model_name": "Lasso",
+  "features": [
+    "OverallQual",
+    "GrLivArea",
+    "TotalBsmtSF",
+    "GarageCars",
+    "FullBath",
+    "YearBuilt",
+    "LotArea",
+    "Fireplaces",
+    "Neighborhood",
+    "KitchenQual"
+  ],
+  "num_features": [
+    "OverallQual",
+    "GrLivArea",
+    "TotalBsmtSF",
+    "GarageCars",
+    "FullBath",
+    "YearBuilt",
+    "LotArea",
+    "Fireplaces"
+  ],
+  "cat_features": [
+    "Neighborhood",
+    "KitchenQual"
+  ],
+  "neighborhoods": [
+    "Blmngtn",
+    "Blueste",
+    "BrDale",
+    "BrkSide",
+    "ClearCr",
+    "CollgCr",
+    "Crawfor",
+    "Edwards",
+    "Gilbert",
+    "IDOTRR",
+    "MeadowV",
+    "Mitchel",
+    "NAmes",
+    "NPkVill",
+    "NWAmes",
+    "NoRidge",
+    "NridgHt",
+    "OldTown",
+    "SWISU",
+    "Sawyer",
+    "SawyerW",
+    "Somerst",
+    "StoneBr",
+    "Timber",
+    "Veenker"
+  ],
+  "kitchen_quality": [
+    "Ex",
+    "Gd",
+    "TA",
+    "Fa"
+  ],
+  "limits": {
+    "OverallQual": [
+      1.0,
+      10.0
+    ],
+    "GrLivArea": [
+      334.0,
+      4476.0
+    ],
+    "TotalBsmtSF": [
+      0.0,
+      3206.0
+    ],
+    "GarageCars": [
+      0.0,
+      4.0
+    ],
+    "FullBath": [
+      0.0,
+      3.0
+    ],
+    "YearBuilt": [
+      1872,
+      2026
+    ],
+    "LotArea": [
+      1300.0,
+      215245.0
+    ],
+    "Fireplaces": [
+      0.0,
+      3.0
+    ]
+  },
+  "defaults": {
+    "OverallQual": 6.0,
+    "GrLivArea": 1461.5,
+    "TotalBsmtSF": 991.0,
+    "GarageCars": 2.0,
+    "FullBath": 2.0,
+    "YearBuilt": 1972.5,
+    "LotArea": 9475.0,
+    "Fireplaces": 1.0
+  },
+  "test_metrics": {
+    "CV MAE ($)": 17499.4044,
+    "Test MAE ($)": 17814.56,
+    "Test RMSE ($)": 24169.944,
+    "Test R2": 0.8942
+  },
+  "full_feature_comparison": {
+    "alpha_ridge": 148.73521072935117,
+    "alpha_lasso": 0.003562247890262444,
+    "lasso_kept": 81,
+    "n_features": 220
+  },
+  "n_training_rows": 1458
+}

@@ -1,0 +1,16 @@
+,coefficient
+GrLivArea,0.07519
+TotalSF,0.07313
+OverallQual,0.07104
+HouseAge,-0.05301
+OverallCond,0.03859
+BsmtFinSF1,0.02689
+SaleType_New,0.02676
+GarageArea,0.02144
+TotalBath,0.01938
+RemodAge,-0.01859
+Neighborhood_Crawfor,0.01749
+Foundation_PConc,0.01739
+GarageCars,0.01678
+MSZoning_RL,0.01639
+TotalPorchSF,0.01633
