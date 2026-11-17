@@ -59,3 +59,17 @@ The web form asks for 10 features a user can realistically know (8 numeric + Nei
 so the app model is trained on only those. Linear, Ridge, Lasso, ElasticNet and Gradient Boosting scored
 the same in 5-fold CV (MAE about $17.5k), so Lasso was chosen as the simplest. Expect about +/-$17,800 error
 on unseen houses.
+
+## Project Links
+
+### Jupyter Notebook
+[House Prices Prediction Notebook](./House_Prices_Prediction%20%281%29.ipynb)
+
+### Live Application
+[Open House Price Predictor](https://house-price-predictor-cgtt.onrender.com)
+
+### Source Code
+[GitHub Repository](https://github.com/nsaraeh/house-price-predictor)
+
+### Project Documentation
+This project includes the complete machine learning workflow, model comparisons, hyperparameter tuning, and a deployed Flask web application for house price prediction.
